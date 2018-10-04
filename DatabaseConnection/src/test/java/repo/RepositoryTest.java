@@ -1,5 +1,6 @@
 package repo;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -31,6 +32,16 @@ public class RepositoryTest {
 			entityManager.persist(model1);
 			entityManager.flush();
 			assertTrue(myRepo.findById(model1.getId()).isPresent());
+		}
+		
+		@Test
+		public void retrieveByNameTest() {
+
+			MySpringBootDataModel model1 = new MySpringBootDataModel("Bob", "Space", 50);
+			entityManager.persist(model1);
+			entityManager.flush();
+			MySpringBootDataModel found = myRepo.findByName("Bob");
+			assertEquals("Bob", found.getName());
 		}
 
 }
