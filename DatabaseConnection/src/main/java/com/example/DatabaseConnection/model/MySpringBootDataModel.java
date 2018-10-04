@@ -42,6 +42,16 @@ public class MySpringBootDataModel implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
 	private Date lastModified;
+	
+	public MySpringBootDataModel() {
+		
+	}
+
+	public MySpringBootDataModel(String name, String address, int age) {
+		this.age = age;
+		this.name = name;
+		this.address = address;
+	}
 
 	public Long getId() {
 		return id;
