@@ -50,7 +50,6 @@ public class PersonController {
 		if(!mySpringBootRepository.existsById(personId)) {
 			throw new ResourceNotFoundException("Person", "Id", orderRequest);
 		}
-		
 		return orderRepository.findById(orderId).map(order -> {
 			order.setTitle(orderRequest.getTitle());
 			return orderRepository.save(order);
