@@ -29,11 +29,21 @@ public class PetController {
 	@Autowired
 	private PersonRepo personRepo;
 	
+	
+	/*Parameters - Long personId, Pageable pageable
+	 * This method returns all pets of the person with id [personId]
+	 *
+	 */
 	@GetMapping("/person/{personId}/pets")
 	public Page<PetModel> getAllOrdersByPersonId(@PathVariable (value = "personId") Long personId, Pageable pageable){
 		return petRepo.findByPersonId(personId,  pageable);
 	}
 	
+	
+	/*Parameters - Long personId, PetModel pet
+	 * This method adds a pet to the person with id [personId]
+	 *
+	 */
 	@PostMapping("person/{personId}/pets")
 	public PetModel createComment(@PathVariable (value = "personId") Long personId,
 			@Valid @RequestBody PetModel pet) {
@@ -43,6 +53,10 @@ public class PetController {
 		}).orElseThrow(() -> new ResourceNotFoundException("Person", "id", pet));
 	}
 	
+	/*Parameters - Long personId, PetModel pet
+	 * This method updates a pet with id [petId] belonging to the person with id [personId] with the information in [petRequest]
+	 *
+	 */
 	@PutMapping("person/{personId}/pets/{petId}")
 	public PetModel updatePet(@PathVariable (value = "personId") Long personId,
 			@PathVariable (value = "petId") Long petId,
@@ -56,12 +70,12 @@ public class PetController {
 		return petRepo.findById(petId).map(pet -> {
 			pet.setName(petRequest.getName());
 			return petRepo.save(pet);
-		}).orElseThrow(() -> new ResourceNotFoundException("Pet Id", "id", petRequest));
+		}).orElseThrow(() -> new ResourceNotFoundException("Pet", "id", petRequest));
 	}
 	
 	
 	
-	
+
 	@DeleteMapping("/person/{personId}/pets/{petId}")
 	public ResponseEntity<?> deleteComment(@PathVariable (value = "personId") Long personId,
 			@PathVariable (value = "petId") Long petId){

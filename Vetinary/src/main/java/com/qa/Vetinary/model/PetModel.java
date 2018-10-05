@@ -68,6 +68,14 @@ public class PetModel {
 	public void setPerson(PersonModel person) {
 		this.person = person;
 	}
+
+	public Set<InjuryModel> getInjuries() {
+		return injuries;
+	}
+
+	public void setInjuries(Set<InjuryModel> injuries) {
+		this.injuries = injuries;
+	}
 	
 	
 	

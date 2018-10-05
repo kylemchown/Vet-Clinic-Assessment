@@ -1,3 +1,4 @@
+
 package com.qa.Vetinary.model;
 
 import java.util.HashSet;
@@ -27,7 +28,7 @@ public class InjuryModel {
 	private String description;
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-		mappedBy = "Injuries")
+		mappedBy = "injuries")
 	private Set<PetModel> pets = new HashSet<>();
 	
 	public InjuryModel(String type, String description) {

@@ -26,25 +26,37 @@ public class PersonController {
 	@Autowired
 	PersonRepo myRepo;
 	
+	/*Parameters - PersonModel PM
+	 * This method creates a new person in a database and then returns the model if successful
+	*/
 	@PostMapping("/person")
 	public PersonModel createPerson(@Valid @RequestBody PersonModel PM) {
 		return myRepo.save(PM);
 	}
 	
-	//Method to get a person
+	/*Parameters - Long personId
+	 * This method returns the information for the person with id [personId]
+	 * 
+	 * */
 	@GetMapping("person/{id}")
 	public PersonModel getPersonbyID(@PathVariable(value = "id")Long personID) {
 		return myRepo.findById(personID).orElseThrow(()-> new ResourceNotFoundException("PersonModel", "id", personID));
 	}
 	
 	
-	//Method to get all people
+	/*Parameters - n/a
+	 * This method returns all people
+	 *
+	 */
 	@GetMapping("/person")
 	public List<PersonModel> getAllPeople(){
 		return myRepo.findAll();
 		}
 	
-	//Method to update a person
+	/*Parameters - Long personId, personModel personDetails
+	 * This method updates the information of the person with id [personId]
+	 *
+	 */
 		@PutMapping("/person/{id}")
 		public PersonModel updatePerson(@PathVariable(value = "id") Long personID,
 				@Valid @RequestBody PersonModel personDetails) {
@@ -57,6 +69,10 @@ public class PersonController {
 			return updateData;
 		}
 		
+		/*Parameters - Long personId
+		 * This method deletes the person with id [personId]
+		 *
+		 */
 		@DeleteMapping("/person/{id}")
 		public ResponseEntity<?> deletePerson(@PathVariable(value = "id")Long personID){
 			PersonModel PM = myRepo.findById(personID).orElseThrow(()->new ResourceNotFoundException("Person", "id", personID));
